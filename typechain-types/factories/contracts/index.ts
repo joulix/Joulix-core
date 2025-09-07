@@ -2,4 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export { CarbonLedgerGoO__factory } from "./CarbonLedgerGoO__factory";
+export { MarketplaceUSDC__factory } from "./MarketplaceUSDC__factory";
 export { USDCmock__factory } from "./USDCmock__factory";

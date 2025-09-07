@@ -2,4 +2,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { CarbonLedgerGoO } from "./CarbonLedgerGoO";
+export type { MarketplaceUSDC } from "./MarketplaceUSDC";
 export type { USDCmock } from "./USDCmock";

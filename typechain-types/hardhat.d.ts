@@ -34,6 +34,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC721Errors__factory>;
     getContractFactory(
+      name: "IERC1363",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC1363__factory>;
+    getContractFactory(
       name: "ERC1155",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC1155__factory>;
@@ -54,6 +58,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC1155Receiver__factory>;
     getContractFactory(
+      name: "ERC1155Holder",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC1155Holder__factory>;
+    getContractFactory(
       name: "ERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC20__factory>;
@@ -65,6 +73,10 @@ declare module "hardhat/types/runtime" {
       name: "IERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
+    getContractFactory(
+      name: "SafeERC20",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SafeERC20__factory>;
     getContractFactory(
       name: "ERC165",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -82,9 +94,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Pausable__factory>;
     getContractFactory(
+      name: "ReentrancyGuard",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ReentrancyGuard__factory>;
+    getContractFactory(
       name: "CarbonLedgerGoO",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.CarbonLedgerGoO__factory>;
+    getContractFactory(
+      name: "MarketplaceUSDC",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MarketplaceUSDC__factory>;
     getContractFactory(
       name: "USDCmock",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -116,6 +136,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC721Errors>;
     getContractAt(
+      name: "IERC1363",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC1363>;
+    getContractAt(
       name: "ERC1155",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -141,6 +166,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC1155Receiver>;
     getContractAt(
+      name: "ERC1155Holder",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC1155Holder>;
+    getContractAt(
       name: "ERC20",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -155,6 +185,11 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
+    getContractAt(
+      name: "SafeERC20",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SafeERC20>;
     getContractAt(
       name: "ERC165",
       address: string | ethers.Addressable,
@@ -176,10 +211,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Pausable>;
     getContractAt(
+      name: "ReentrancyGuard",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ReentrancyGuard>;
+    getContractAt(
       name: "CarbonLedgerGoO",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.CarbonLedgerGoO>;
+    getContractAt(
+      name: "MarketplaceUSDC",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MarketplaceUSDC>;
     getContractAt(
       name: "USDCmock",
       address: string | ethers.Addressable,
@@ -207,6 +252,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC721Errors>;
     deployContract(
+      name: "IERC1363",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1363>;
+    deployContract(
       name: "ERC1155",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ERC1155>;
@@ -227,6 +276,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC1155Receiver>;
     deployContract(
+      name: "ERC1155Holder",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Holder>;
+    deployContract(
       name: "ERC20",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ERC20>;
@@ -238,6 +291,10 @@ declare module "hardhat/types/runtime" {
       name: "IERC20",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
+    deployContract(
+      name: "SafeERC20",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SafeERC20>;
     deployContract(
       name: "ERC165",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -255,9 +312,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Pausable>;
     deployContract(
+      name: "ReentrancyGuard",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ReentrancyGuard>;
+    deployContract(
       name: "CarbonLedgerGoO",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.CarbonLedgerGoO>;
+    deployContract(
+      name: "MarketplaceUSDC",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MarketplaceUSDC>;
     deployContract(
       name: "USDCmock",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -289,6 +354,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC721Errors>;
     deployContract(
+      name: "IERC1363",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IERC1363>;
+    deployContract(
       name: "ERC1155",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -314,6 +384,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC1155Receiver>;
     deployContract(
+      name: "ERC1155Holder",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ERC1155Holder>;
+    deployContract(
       name: "ERC20",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -328,6 +403,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
+    deployContract(
+      name: "SafeERC20",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SafeERC20>;
     deployContract(
       name: "ERC165",
       args: any[],
@@ -349,10 +429,20 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Pausable>;
     deployContract(
+      name: "ReentrancyGuard",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ReentrancyGuard>;
+    deployContract(
       name: "CarbonLedgerGoO",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.CarbonLedgerGoO>;
+    deployContract(
+      name: "MarketplaceUSDC",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.MarketplaceUSDC>;
     deployContract(
       name: "USDCmock",
       args: any[],
