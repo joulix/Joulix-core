@@ -40,109 +40,49 @@ export interface ERC1155SupplyInterface extends Interface {
   ): FunctionFragment;
 
   getEvent(
-    nameOrSignatureOrTopic:
-      | "ApprovalForAll"
-      | "TransferBatch"
-      | "TransferSingle"
-      | "URI"
+    nameOrSignatureOrTopic: "ApprovalForAll" | "TransferBatch" | "TransferSingle" | "URI"
   ): EventFragment;
 
-  encodeFunctionData(
-    functionFragment: "balanceOf",
-    values: [AddressLike, BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: "balanceOf", values: [AddressLike, BigNumberish]): string;
   encodeFunctionData(
     functionFragment: "balanceOfBatch",
     values: [AddressLike[], BigNumberish[]]
   ): string;
-  encodeFunctionData(
-    functionFragment: "exists",
-    values: [BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: "exists", values: [BigNumberish]): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [AddressLike, AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "safeBatchTransferFrom",
-    values: [
-      AddressLike,
-      AddressLike,
-      BigNumberish[],
-      BigNumberish[],
-      BytesLike
-    ]
+    values: [AddressLike, AddressLike, BigNumberish[], BigNumberish[], BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "safeTransferFrom",
     values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BytesLike]
   ): string;
-  encodeFunctionData(
-    functionFragment: "setApprovalForAll",
-    values: [AddressLike, boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "supportsInterface",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "totalSupply()",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "totalSupply(uint256)",
-    values: [BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: "setApprovalForAll", values: [AddressLike, boolean]): string;
+  encodeFunctionData(functionFragment: "supportsInterface", values: [BytesLike]): string;
+  encodeFunctionData(functionFragment: "totalSupply()", values?: undefined): string;
+  encodeFunctionData(functionFragment: "totalSupply(uint256)", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "uri", values: [BigNumberish]): string;
 
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "balanceOfBatch",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "balanceOfBatch", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "exists", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "isApprovedForAll",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "safeBatchTransferFrom",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "safeTransferFrom",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setApprovalForAll",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "supportsInterface",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "totalSupply()",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "totalSupply(uint256)",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "isApprovedForAll", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "safeBatchTransferFrom", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "safeTransferFrom", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setApprovalForAll", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "supportsInterface", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "totalSupply()", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "totalSupply(uint256)", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "uri", data: BytesLike): Result;
 }
 
 export namespace ApprovalForAllEvent {
-  export type InputTuple = [
-    account: AddressLike,
-    operator: AddressLike,
-    approved: boolean
-  ];
-  export type OutputTuple = [
-    account: string,
-    operator: string,
-    approved: boolean
-  ];
+  export type InputTuple = [account: AddressLike, operator: AddressLike, approved: boolean];
+  export type OutputTuple = [account: string, operator: string, approved: boolean];
   export interface OutputObject {
     account: string;
     operator: string;
@@ -160,14 +100,14 @@ export namespace TransferBatchEvent {
     from: AddressLike,
     to: AddressLike,
     ids: BigNumberish[],
-    values: BigNumberish[]
+    values: BigNumberish[],
   ];
   export type OutputTuple = [
     operator: string,
     from: string,
     to: string,
     ids: bigint[],
-    values: bigint[]
+    values: bigint[],
   ];
   export interface OutputObject {
     operator: string;
@@ -188,15 +128,9 @@ export namespace TransferSingleEvent {
     from: AddressLike,
     to: AddressLike,
     id: BigNumberish,
-    value: BigNumberish
+    value: BigNumberish,
   ];
-  export type OutputTuple = [
-    operator: string,
-    from: string,
-    to: string,
-    id: bigint,
-    value: bigint
-  ];
+  export type OutputTuple = [operator: string, from: string, to: string, id: bigint, value: bigint];
   export interface OutputObject {
     operator: string;
     from: string;
@@ -262,15 +196,9 @@ export interface ERC1155Supply extends BaseContract {
     event: TCEvent
   ): Promise<Array<TypedListener<TCEvent>>>;
   listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(
-    event?: TCEvent
-  ): Promise<this>;
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
 
-  balanceOf: TypedContractMethod<
-    [account: AddressLike, id: BigNumberish],
-    [bigint],
-    "view"
-  >;
+  balanceOf: TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], "view">;
 
   balanceOfBatch: TypedContractMethod<
     [accounts: AddressLike[], ids: BigNumberish[]],
@@ -292,20 +220,14 @@ export interface ERC1155Supply extends BaseContract {
       to: AddressLike,
       ids: BigNumberish[],
       values: BigNumberish[],
-      data: BytesLike
+      data: BytesLike,
     ],
     [void],
     "nonpayable"
   >;
 
   safeTransferFrom: TypedContractMethod<
-    [
-      from: AddressLike,
-      to: AddressLike,
-      id: BigNumberish,
-      value: BigNumberish,
-      data: BytesLike
-    ],
+    [from: AddressLike, to: AddressLike, id: BigNumberish, value: BigNumberish, data: BytesLike],
     [void],
     "nonpayable"
   >;
@@ -316,50 +238,28 @@ export interface ERC1155Supply extends BaseContract {
     "nonpayable"
   >;
 
-  supportsInterface: TypedContractMethod<
-    [interfaceId: BytesLike],
-    [boolean],
-    "view"
-  >;
+  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
 
   "totalSupply()": TypedContractMethod<[], [bigint], "view">;
 
-  "totalSupply(uint256)": TypedContractMethod<
-    [id: BigNumberish],
-    [bigint],
-    "view"
-  >;
+  "totalSupply(uint256)": TypedContractMethod<[id: BigNumberish], [bigint], "view">;
 
   uri: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
 
-  getFunction<T extends ContractMethod = ContractMethod>(
-    key: string | FunctionFragment
-  ): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
 
   getFunction(
     nameOrSignature: "balanceOf"
-  ): TypedContractMethod<
-    [account: AddressLike, id: BigNumberish],
-    [bigint],
-    "view"
-  >;
+  ): TypedContractMethod<[account: AddressLike, id: BigNumberish], [bigint], "view">;
   getFunction(
     nameOrSignature: "balanceOfBatch"
-  ): TypedContractMethod<
-    [accounts: AddressLike[], ids: BigNumberish[]],
-    [bigint[]],
-    "view"
-  >;
+  ): TypedContractMethod<[accounts: AddressLike[], ids: BigNumberish[]], [bigint[]], "view">;
   getFunction(
     nameOrSignature: "exists"
   ): TypedContractMethod<[id: BigNumberish], [boolean], "view">;
   getFunction(
     nameOrSignature: "isApprovedForAll"
-  ): TypedContractMethod<
-    [account: AddressLike, operator: AddressLike],
-    [boolean],
-    "view"
-  >;
+  ): TypedContractMethod<[account: AddressLike, operator: AddressLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "safeBatchTransferFrom"
   ): TypedContractMethod<
@@ -368,7 +268,7 @@ export interface ERC1155Supply extends BaseContract {
       to: AddressLike,
       ids: BigNumberish[],
       values: BigNumberish[],
-      data: BytesLike
+      data: BytesLike,
     ],
     [void],
     "nonpayable"
@@ -376,35 +276,21 @@ export interface ERC1155Supply extends BaseContract {
   getFunction(
     nameOrSignature: "safeTransferFrom"
   ): TypedContractMethod<
-    [
-      from: AddressLike,
-      to: AddressLike,
-      id: BigNumberish,
-      value: BigNumberish,
-      data: BytesLike
-    ],
+    [from: AddressLike, to: AddressLike, id: BigNumberish, value: BigNumberish, data: BytesLike],
     [void],
     "nonpayable"
   >;
   getFunction(
     nameOrSignature: "setApprovalForAll"
-  ): TypedContractMethod<
-    [operator: AddressLike, approved: boolean],
-    [void],
-    "nonpayable"
-  >;
+  ): TypedContractMethod<[operator: AddressLike, approved: boolean], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "supportsInterface"
   ): TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
-  getFunction(
-    nameOrSignature: "totalSupply()"
-  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(nameOrSignature: "totalSupply()"): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "totalSupply(uint256)"
   ): TypedContractMethod<[id: BigNumberish], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "uri"
-  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  getFunction(nameOrSignature: "uri"): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
 
   getEvent(
     key: "ApprovalForAll"
@@ -429,11 +315,7 @@ export interface ERC1155Supply extends BaseContract {
   >;
   getEvent(
     key: "URI"
-  ): TypedContractEvent<
-    URIEvent.InputTuple,
-    URIEvent.OutputTuple,
-    URIEvent.OutputObject
-  >;
+  ): TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>;
 
   filters: {
     "ApprovalForAll(address,address,bool)": TypedContractEvent<
@@ -474,10 +356,6 @@ export interface ERC1155Supply extends BaseContract {
       URIEvent.OutputTuple,
       URIEvent.OutputObject
     >;
-    URI: TypedContractEvent<
-      URIEvent.InputTuple,
-      URIEvent.OutputTuple,
-      URIEvent.OutputObject
-    >;
+    URI: TypedContractEvent<URIEvent.InputTuple, URIEvent.OutputTuple, URIEvent.OutputObject>;
   };
 }

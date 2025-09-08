@@ -328,14 +328,7 @@ export class IERC1155MetadataURI__factory {
   static createInterface(): IERC1155MetadataURIInterface {
     return new Interface(_abi) as IERC1155MetadataURIInterface;
   }
-  static connect(
-    address: string,
-    runner?: ContractRunner | null
-  ): IERC1155MetadataURI {
-    return new Contract(
-      address,
-      _abi,
-      runner
-    ) as unknown as IERC1155MetadataURI;
+  static connect(address: string, runner?: ContractRunner | null): IERC1155MetadataURI {
+    return new Contract(address, _abi, runner) as unknown as IERC1155MetadataURI;
   }
 }

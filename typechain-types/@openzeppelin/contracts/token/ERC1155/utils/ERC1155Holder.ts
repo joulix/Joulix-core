@@ -23,43 +23,22 @@ import type {
 
 export interface ERC1155HolderInterface extends Interface {
   getFunction(
-    nameOrSignature:
-      | "onERC1155BatchReceived"
-      | "onERC1155Received"
-      | "supportsInterface"
+    nameOrSignature: "onERC1155BatchReceived" | "onERC1155Received" | "supportsInterface"
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "onERC1155BatchReceived",
-    values: [
-      AddressLike,
-      AddressLike,
-      BigNumberish[],
-      BigNumberish[],
-      BytesLike
-    ]
+    values: [AddressLike, AddressLike, BigNumberish[], BigNumberish[], BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "onERC1155Received",
     values: [AddressLike, AddressLike, BigNumberish, BigNumberish, BytesLike]
   ): string;
-  encodeFunctionData(
-    functionFragment: "supportsInterface",
-    values: [BytesLike]
-  ): string;
+  encodeFunctionData(functionFragment: "supportsInterface", values: [BytesLike]): string;
 
-  decodeFunctionResult(
-    functionFragment: "onERC1155BatchReceived",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "onERC1155Received",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "supportsInterface",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "onERC1155BatchReceived", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "onERC1155Received", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "supportsInterface", data: BytesLike): Result;
 }
 
 export interface ERC1155Holder extends BaseContract {
@@ -101,9 +80,7 @@ export interface ERC1155Holder extends BaseContract {
     event: TCEvent
   ): Promise<Array<TypedListener<TCEvent>>>;
   listeners(eventName?: string): Promise<Array<Listener>>;
-  removeAllListeners<TCEvent extends TypedContractEvent>(
-    event?: TCEvent
-  ): Promise<this>;
+  removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
 
   onERC1155BatchReceived: TypedContractMethod<
     [
@@ -111,33 +88,21 @@ export interface ERC1155Holder extends BaseContract {
       arg1: AddressLike,
       arg2: BigNumberish[],
       arg3: BigNumberish[],
-      arg4: BytesLike
+      arg4: BytesLike,
     ],
     [string],
     "nonpayable"
   >;
 
   onERC1155Received: TypedContractMethod<
-    [
-      arg0: AddressLike,
-      arg1: AddressLike,
-      arg2: BigNumberish,
-      arg3: BigNumberish,
-      arg4: BytesLike
-    ],
+    [arg0: AddressLike, arg1: AddressLike, arg2: BigNumberish, arg3: BigNumberish, arg4: BytesLike],
     [string],
     "nonpayable"
   >;
 
-  supportsInterface: TypedContractMethod<
-    [interfaceId: BytesLike],
-    [boolean],
-    "view"
-  >;
+  supportsInterface: TypedContractMethod<[interfaceId: BytesLike], [boolean], "view">;
 
-  getFunction<T extends ContractMethod = ContractMethod>(
-    key: string | FunctionFragment
-  ): T;
+  getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
 
   getFunction(
     nameOrSignature: "onERC1155BatchReceived"
@@ -147,7 +112,7 @@ export interface ERC1155Holder extends BaseContract {
       arg1: AddressLike,
       arg2: BigNumberish[],
       arg3: BigNumberish[],
-      arg4: BytesLike
+      arg4: BytesLike,
     ],
     [string],
     "nonpayable"
@@ -155,13 +120,7 @@ export interface ERC1155Holder extends BaseContract {
   getFunction(
     nameOrSignature: "onERC1155Received"
   ): TypedContractMethod<
-    [
-      arg0: AddressLike,
-      arg1: AddressLike,
-      arg2: BigNumberish,
-      arg3: BigNumberish,
-      arg4: BytesLike
-    ],
+    [arg0: AddressLike, arg1: AddressLike, arg2: BigNumberish, arg3: BigNumberish, arg4: BytesLike],
     [string],
     "nonpayable"
   >;

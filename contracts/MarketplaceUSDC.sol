@@ -16,26 +16,26 @@ contract MarketplaceUSDC is ERC1155Holder, AccessControl, Pausable, ReentrancyGu
     using SafeERC20 for IERC20;
 
     // --- Role ---
-    bytes32 public constant ROLE_ADMIN  = DEFAULT_ADMIN_ROLE;
+    bytes32 public constant ROLE_ADMIN = DEFAULT_ADMIN_ROLE;
     bytes32 public constant ROLE_PAUSER = keccak256("ROLE_PAUSER");
 
     // --- State ---
-    IERC20  public immutable quote;     // USDC/EURC (ERC-20)
-    address public treasury;            // adres opłat (fee)
-    uint96  public feeBps;              // fee w bazowych punktach (100 = 1%)
-    uint256 public nextId = 1;          // id kolejnych listingów
+    IERC20 public immutable quote; // USDC/EURC (ERC-20)
+    address public treasury; // adres opłat (fee)
+    uint96 public feeBps; // fee w bazowych punktach (100 = 1%)
+    uint256 public nextId = 1; // id kolejnych listingów
 
     // dozwolone kolekcje ERC-1155 (np. nasz CarbonLedgerGoO)
     mapping(address => bool) public allowedCollection;
 
     struct Listing {
         address seller;
-        address token;        // adres ERC1155
+        address token; // adres ERC1155
         uint256 tokenId;
-        uint256 amount;       // ilość wystawiona łącznie (w jednostkach ERC1155, np. 1e18)
-        uint256 filled;       // ile już sprzedano
+        uint256 amount; // ilość wystawiona łącznie (w jednostkach ERC1155, np. 1e18)
+        uint256 filled; // ile już sprzedano
         uint256 pricePerUnit; // cena w 'quote' za 1e18 jednostki
-        bool    active;
+        bool active;
     }
 
     mapping(uint256 => Listing) public listings;
@@ -49,7 +49,13 @@ contract MarketplaceUSDC is ERC1155Holder, AccessControl, Pausable, ReentrancyGu
         uint256 amount,
         uint256 pricePerUnit
     );
-    event Purchased(uint256 indexed listingId, address indexed buyer, uint256 amount, uint256 cost, uint256 fee);
+    event Purchased(
+        uint256 indexed listingId,
+        address indexed buyer,
+        uint256 amount,
+        uint256 cost,
+        uint256 fee
+    );
     event Canceled(uint256 indexed listingId, uint256 remaining);
     event CollectionAllowed(address indexed token, bool allowed);
     event FeeUpdated(uint96 feeBps, address indexed treasury);
@@ -94,8 +100,12 @@ contract MarketplaceUSDC is ERC1155Holder, AccessControl, Pausable, ReentrancyGu
         emit CollectionAllowed(token, allowed);
     }
 
-    function pause() external onlyRole(ROLE_PAUSER) { _pause(); }
-    function unpause() external onlyRole(ROLE_PAUSER) { _unpause(); }
+    function pause() external onlyRole(ROLE_PAUSER) {
+        _pause();
+    }
+    function unpause() external onlyRole(ROLE_PAUSER) {
+        _unpause();
+    }
 
     // ---------- Sprzedaż ----------
 
@@ -104,11 +114,12 @@ contract MarketplaceUSDC is ERC1155Holder, AccessControl, Pausable, ReentrancyGu
     /// @param tokenId id aktywa
     /// @param amount ilość wystawiana (w jednostkach ERC1155, np. 1e18 = 1 MWh)
     /// @param pricePerUnit cena w quote (USDC/EURC) za 1e18 jednostki
-    function list(address token, uint256 tokenId, uint256 amount, uint256 pricePerUnit)
-        external
-        whenNotPaused
-        returns (uint256 id)
-    {
+    function list(
+        address token,
+        uint256 tokenId,
+        uint256 amount,
+        uint256 pricePerUnit
+    ) external whenNotPaused returns (uint256 id) {
         if (!allowedCollection[token]) revert CollectionNotAllowed();
         if (amount == 0) revert AmountZero();
         if (pricePerUnit == 0) revert PriceZero();
@@ -133,11 +144,7 @@ contract MarketplaceUSDC is ERC1155Holder, AccessControl, Pausable, ReentrancyGu
     /// @notice Zakup części/całości listing'u.
     /// @param id id oferty
     /// @param amount żądana ilość (w jednostkach ERC1155, zgodnych z listingiem)
-    function buy(uint256 id, uint256 amount)
-        external
-        nonReentrant
-        whenNotPaused
-    {
+    function buy(uint256 id, uint256 amount) external nonReentrant whenNotPaused {
         Listing storage L = listings[id];
         if (!L.active) revert Inactive();
         if (amount == 0) revert AmountZero();
@@ -171,11 +178,7 @@ contract MarketplaceUSDC is ERC1155Holder, AccessControl, Pausable, ReentrancyGu
     }
 
     /// @notice Anulacja i zwrot niesprzedanej ilości do sprzedawcy.
-    function cancel(uint256 id)
-        external
-        nonReentrant
-        whenNotPaused
-    {
+    function cancel(uint256 id) external nonReentrant whenNotPaused {
         Listing storage L = listings[id];
         if (!L.active) revert Inactive();
         if (msg.sender != L.seller) revert NotSeller();
@@ -206,21 +209,21 @@ contract MarketplaceUSDC is ERC1155Holder, AccessControl, Pausable, ReentrancyGu
     }
 
     /// @notice Odzyskanie omyłkowo wysłanych tokenów ERC1155 (niezwiązanych z aktywnymi listingami).
-    function rescueERC1155(address token, address to, uint256 id, uint256 amount, bytes calldata data)
-        external
-        onlyRole(ROLE_ADMIN)
-    {
+    function rescueERC1155(
+        address token,
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes calldata data
+    ) external onlyRole(ROLE_ADMIN) {
         IERC1155(token).safeTransferFrom(address(this), to, id, amount, data);
     }
 
     // ---------- Wymagane override ----------
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(AccessControl, ERC1155Holder)
-        returns (bool)
-    {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(AccessControl, ERC1155Holder) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }

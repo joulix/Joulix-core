@@ -15,7 +15,7 @@ import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
  *         - revoke  = blokada transferów dla danego tokenId (np. błąd wydania)
  */
 contract CarbonLedgerGoO is ERC1155, ERC1155Supply, AccessControl, Pausable {
-    bytes32 public constant ROLE_ADMIN  = DEFAULT_ADMIN_ROLE;
+    bytes32 public constant ROLE_ADMIN = DEFAULT_ADMIN_ROLE;
     bytes32 public constant ROLE_ISSUER = keccak256("ROLE_ISSUER");
     bytes32 public constant ROLE_PAUSER = keccak256("ROLE_PAUSER");
 
@@ -40,10 +40,18 @@ contract CarbonLedgerGoO is ERC1155, ERC1155Supply, AccessControl, Pausable {
         _setURI(newuri);
     }
 
-    function pause() external onlyRole(ROLE_PAUSER) { _pause(); }
-    function unpause() external onlyRole(ROLE_PAUSER) { _unpause(); }
+    function pause() external onlyRole(ROLE_PAUSER) {
+        _pause();
+    }
+    function unpause() external onlyRole(ROLE_PAUSER) {
+        _unpause();
+    }
 
-    function setRevoked(uint256 id, bool status, string calldata reason) external onlyRole(ROLE_ADMIN) {
+    function setRevoked(
+        uint256 id,
+        bool status,
+        string calldata reason
+    ) external onlyRole(ROLE_ADMIN) {
         revoked[id] = status;
         if (status) emit Revoked(id, reason);
     }
@@ -51,17 +59,21 @@ contract CarbonLedgerGoO is ERC1155, ERC1155Supply, AccessControl, Pausable {
     // ---------- Wydawanie (mint) ----------
 
     /// @dev value = ilość jednostek (np. 1e18 jeśli id reprezentuje 1 MWh z 18 miejscami)
-    function mint(address to, uint256 id, uint256 value, bytes calldata data)
-        external
-        onlyRole(ROLE_ISSUER)
-    {
+    function mint(
+        address to,
+        uint256 id,
+        uint256 value,
+        bytes calldata data
+    ) external onlyRole(ROLE_ISSUER) {
         _mint(to, id, value, data);
     }
 
-    function mintBatch(address to, uint256[] calldata ids, uint256[] calldata values, bytes calldata data)
-        external
-        onlyRole(ROLE_ISSUER)
-    {
+    function mintBatch(
+        address to,
+        uint256[] calldata ids,
+        uint256[] calldata values,
+        bytes calldata data
+    ) external onlyRole(ROLE_ISSUER) {
         _mintBatch(to, ids, values, data);
     }
 
@@ -71,7 +83,11 @@ contract CarbonLedgerGoO is ERC1155, ERC1155Supply, AccessControl, Pausable {
         emit Retired(msg.sender, id, value, reason);
     }
 
-    function retireBatch(uint256[] calldata ids, uint256[] calldata values, string calldata reason) external {
+    function retireBatch(
+        uint256[] calldata ids,
+        uint256[] calldata values,
+        string calldata reason
+    ) external {
         _burnBatch(msg.sender, ids, values);
         // pojedyncze zdarzenie zbiorcze można emitować osobno, tu zdarzenia nie są batchowane dla prostoty
         for (uint256 i = 0; i < ids.length; i++) {
@@ -81,10 +97,12 @@ contract CarbonLedgerGoO is ERC1155, ERC1155Supply, AccessControl, Pausable {
 
     // ---------- Hooki / Blokady ----------
 
-    function _update(address from, address to, uint256[] memory ids, uint256[] memory values)
-        internal
-        override(ERC1155, ERC1155Supply)
-    {
+    function _update(
+        address from,
+        address to,
+        uint256[] memory ids,
+        uint256[] memory values
+    ) internal override(ERC1155, ERC1155Supply) {
         // Pauza globalna
         require(!paused(), "paused");
 
@@ -97,12 +115,9 @@ contract CarbonLedgerGoO is ERC1155, ERC1155Supply, AccessControl, Pausable {
     }
 
     // Wymagane przez kompilator (wielokrotne dziedziczenie)
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC1155, AccessControl)
-        returns (bool)
-    {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(ERC1155, AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 }

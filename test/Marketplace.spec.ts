@@ -102,7 +102,10 @@ describe("MarketplaceUSDC", () => {
     const ev = rc!.logs.find((l: any) => l.fragment?.name === "Listed");
     const listingId = ev?.args?.listingId ?? 1n;
 
-    await expect(mkt.connect(buyer).cancel(listingId)).to.be.revertedWithCustomError(mkt, "NotSeller");
+    await expect(mkt.connect(buyer).cancel(listingId)).to.be.revertedWithCustomError(
+      mkt,
+      "NotSeller"
+    );
     await expect(mkt.connect(seller).cancel(listingId)).to.emit(mkt, "Canceled");
   });
 
@@ -137,14 +140,16 @@ describe("MarketplaceUSDC", () => {
     const { admin, mkt, treasury } = await deployAll();
 
     // Za wysokie fee (>20%)
-    await expect(
-      mkt.connect(admin).setFee(2_001, treasury.address)
-    ).to.be.revertedWithCustomError(mkt, "FeeTooHigh");
+    await expect(mkt.connect(admin).setFee(2_001, treasury.address)).to.be.revertedWithCustomError(
+      mkt,
+      "FeeTooHigh"
+    );
 
     // Puste treasury
-    await expect(
-      mkt.connect(admin).setFee(100, ethers.ZeroAddress)
-    ).to.be.revertedWithCustomError(mkt, "TreasuryZero");
+    await expect(mkt.connect(admin).setFee(100, ethers.ZeroAddress)).to.be.revertedWithCustomError(
+      mkt,
+      "TreasuryZero"
+    );
 
     // Poprawne ustawienie
     await expect(mkt.connect(admin).setFee(250, treasury.address)).to.emit(mkt, "FeeUpdated");
@@ -181,7 +186,9 @@ describe("MarketplaceUSDC", () => {
 
     // Admin może
     const before = await goo.balanceOf(other.address, id2);
-    await mkt.connect(admin).rescueERC1155(await goo.getAddress(), other.address, id2, U.wei18(2), "0x");
+    await mkt
+      .connect(admin)
+      .rescueERC1155(await goo.getAddress(), other.address, id2, U.wei18(2), "0x");
     expect(await goo.balanceOf(other.address, id2)).to.equal(before + U.wei18(2));
   });
 });

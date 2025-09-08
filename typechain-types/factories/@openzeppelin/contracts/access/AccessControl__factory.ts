@@ -241,10 +241,7 @@ export class AccessControl__factory {
   static createInterface(): AccessControlInterface {
     return new Interface(_abi) as AccessControlInterface;
   }
-  static connect(
-    address: string,
-    runner?: ContractRunner | null
-  ): AccessControl {
+  static connect(address: string, runner?: ContractRunner | null): AccessControl {
     return new Contract(address, _abi, runner) as unknown as AccessControl;
   }
 }

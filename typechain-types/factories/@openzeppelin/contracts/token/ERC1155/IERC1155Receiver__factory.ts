@@ -113,10 +113,7 @@ export class IERC1155Receiver__factory {
   static createInterface(): IERC1155ReceiverInterface {
     return new Interface(_abi) as IERC1155ReceiverInterface;
   }
-  static connect(
-    address: string,
-    runner?: ContractRunner | null
-  ): IERC1155Receiver {
+  static connect(address: string, runner?: ContractRunner | null): IERC1155Receiver {
     return new Contract(address, _abi, runner) as unknown as IERC1155Receiver;
   }
 }

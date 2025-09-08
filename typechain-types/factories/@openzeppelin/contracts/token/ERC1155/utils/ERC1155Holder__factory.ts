@@ -113,10 +113,7 @@ export class ERC1155Holder__factory {
   static createInterface(): ERC1155HolderInterface {
     return new Interface(_abi) as ERC1155HolderInterface;
   }
-  static connect(
-    address: string,
-    runner?: ContractRunner | null
-  ): ERC1155Holder {
+  static connect(address: string, runner?: ContractRunner | null): ERC1155Holder {
     return new Contract(address, _abi, runner) as unknown as ERC1155Holder;
   }
 }

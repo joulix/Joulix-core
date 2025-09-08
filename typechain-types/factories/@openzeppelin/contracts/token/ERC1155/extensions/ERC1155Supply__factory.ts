@@ -481,10 +481,7 @@ export class ERC1155Supply__factory {
   static createInterface(): ERC1155SupplyInterface {
     return new Interface(_abi) as ERC1155SupplyInterface;
   }
-  static connect(
-    address: string,
-    runner?: ContractRunner | null
-  ): ERC1155Supply {
+  static connect(address: string, runner?: ContractRunner | null): ERC1155Supply {
     return new Contract(address, _abi, runner) as unknown as ERC1155Supply;
   }
 }

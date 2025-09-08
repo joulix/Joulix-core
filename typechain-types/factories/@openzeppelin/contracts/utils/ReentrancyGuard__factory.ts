@@ -21,10 +21,7 @@ export class ReentrancyGuard__factory {
   static createInterface(): ReentrancyGuardInterface {
     return new Interface(_abi) as ReentrancyGuardInterface;
   }
-  static connect(
-    address: string,
-    runner?: ContractRunner | null
-  ): ReentrancyGuard {
+  static connect(address: string, runner?: ContractRunner | null): ReentrancyGuard {
     return new Contract(address, _abi, runner) as unknown as ReentrancyGuard;
   }
 }
