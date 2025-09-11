@@ -17,22 +17,42 @@ Smart contracts for tokenizing green energy certificates (GoO) and running a mar
 npm install
 ```
 
-### 2. Compile contracts
+### 2. Configure environment
+
+Skopiuj `.env.example` do `.env` i uzupełnij zmienne:
+
+```bash
+cp .env.example .env
+```
+
+Wymagane zmienne:
+
+- `AMOY_RPC_URL` - URL RPC dla Polygon Amoy testnet
+- `PRIVATE_KEY_DEPLOYER` - klucz prywatny do deployu (bez 0x)
+- `POLYGONSCAN_API_KEY` - klucz API Etherscan (V2 - wspólny dla wszystkich sieci)
+
+### 3. Compile contracts
 
 ```bash
 npx hardhat compile
 ```
 
-### 3. Run tests
+### 4. Run tests
 
 ```bash
 npx hardhat test
 ```
 
-### 4. Deploy to Polygon Amoy testnet
+### 5. Deploy to Polygon Amoy testnet
 
 ```bash
 npx hardhat run scripts/deploy.ts --network amoy
+```
+
+### 6. Verify contracts on Polygonscan
+
+```bash
+npx hardhat verify --network amoy <CONTRACT_ADDRESS> <CONSTRUCTOR_ARGS>
 ```
 
 ## 📝 License
