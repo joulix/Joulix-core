@@ -1,0 +1,50 @@
+# ======================================
+# Joulix Project - Git Ignore
+# Contracts + Dashboard
+# ======================================
+
+# --- Node.js dependencies ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# --- Build outputs ---
+.next/
+out/
+dist/
+build/
+
+# --- Hardhat / Solidity artifacts ---
+artifacts/
+cache/
+typechain-types/
+
+# --- Environment files (keep only *.example) ---
+.env
+.env.local
+.env.*.local
+
+# --- System files ---
+.DS_Store
+Thumbs.db
+
+# --- Editor configs ---
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# --- Temporary / paste files ---
+*_paste_*.txt
+
+# --- Coverage / testing ---
+coverage/
+*.lcov
+
+# --- Lock files (optional) ---
+# Jeśli chcesz stabilne buildy → zostaw commitowane package-lock.json
+# Jeśli chcesz czystości → odkomentuj poniżej
+# package-lock.json

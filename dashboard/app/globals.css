@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* opcjonalnie: drobny reset */
+html, body, #__next {
+  height: 100%;
+}
