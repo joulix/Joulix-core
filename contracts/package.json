@@ -13,7 +13,10 @@
     "test": "hardhat test",
     "clean": "hardhat clean",
     "deploy:amoy": "hardhat run scripts/deploy.ts --network amoy",
-    "format": "prettier --write \"**/*.{ts,sol,json,md,yml,yaml}\""
+    "format": "prettier --write \"**/*.{ts,sol,json,md,yml,yaml}\"",
+    "test:simple": "hardhat run scripts/simple-test.js --network amoy",
+    "test:buy": "hardhat run scripts/test-buy.js --network amoy",
+    "test:market": "hardhat run scripts/test-marketplace.js --network amoy"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",

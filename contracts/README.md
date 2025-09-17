@@ -69,6 +69,23 @@ FEE_BPS  = 200
 
 ---
 
+## 🧪 Testing Scripts
+
+Quick test commands:
+```bash
+npm run test:simple    # Mint GoO + create listing
+npm run test:buy       # Buy from existing listing
+npm run test:market    # Full E2E flow
+```
+
+### Amoy E2E Status (2025-01-17)
+- ✅ **Listing #5**: 5 × GoO(id=1) @ 10 USDC each
+- ✅ **Purchase**: 2 items → buyer -20 USDC, seller +19.6 USDC, treasury +0.4 USDC
+- ✅ **Remaining**: 3 items in listing
+- ✅ **All operations**: Verified working
+
+---
+
 ## 🔗 Related project
 Dashboard (Next.js frontend): https://github.com/joulix/dashboard
 
