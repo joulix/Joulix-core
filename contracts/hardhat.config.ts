@@ -4,8 +4,13 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const AMOY_RPC_URL = process.env.AMOY_RPC_URL || "";
-const PRIVATE_KEY = process.env.PRIVATE_KEY_DEPLOYER || "";
+const PRIVATE_KEY_DEPLOYER = process.env.PRIVATE_KEY_DEPLOYER || "";
+const PRIVATE_KEY_BUYER = process.env.PRIVATE_KEY_BUYER || "";
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "";
+
+const accounts = [PRIVATE_KEY_DEPLOYER, PRIVATE_KEY_BUYER].filter(
+  (key) => key && key.length > 0
+);
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -17,25 +22,22 @@ const config: HardhatUserConfig = {
     amoy: {
       url: AMOY_RPC_URL,
       chainId: 80002,
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
+      accounts,
     },
   },
-  // Etherscan V2 (Multichain)
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY || "",
+    apiKey: ETHERSCAN_API_KEY,
     customChains: [
       {
         network: "amoy",
         chainId: 80002,
         urls: {
-          // Etherscan V2 — jeden wspólny endpoint
           apiURL: "https://api.etherscan.io/v2/api",
           browserURL: "https://amoy.polygonscan.com",
         },
       },
     ],
   },
-  // (opcjonalnie) wyłącz komunikat o Sourcify:
   sourcify: { enabled: false },
 };
 
