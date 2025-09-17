@@ -1,43 +1,68 @@
-# Joulix Dashboard
+# Joulix Contracts
 
-Frontend for interacting with Joulix smart contracts deployed on Polygon Amoy.
+Smart contracts for Joulix carbon credit marketplace deployed on Polygon Amoy.
 
 ## 📦 Tech stack
-- Next.js 15 (React)
-- TypeScript
-- Tailwind CSS
-- shadcn/ui – UI components
-- wagmi + ethers.js – Web3 integration
+- Hardhat – Development framework
+- Solidity 0.8.20 – Smart contracts
+- TypeScript – Type safety
+- OpenZeppelin – Security libraries
+- ethers.js – Web3 integration
 
 ---
 
 ## 🚀 Quickstart
 
 ### 1. Install dependencies
+```bash
 npm install
+```
 
 ### 2. Configure environment
-Skopiuj `.env.local.example` do `.env.local`:
+Skopiuj `.env.example` do `.env` i ustaw zmienne środowiskowe:
 
-cp .env.local.example .env.local
+```bash
+cp .env.example .env
+```
 
-Ustaw zmienne środowiskowe zgodnie z wdrożonymi kontraktami:
+Ustaw zmienne w pliku `.env`:
+```
+AMOY_RPC_URL=https://rpc-amoy.polygon.technology
+PRIVATE_KEY_DEPLOYER=0x...
+PRIVATE_KEY_BUYER=0x...
+ETHERSCAN_API_KEY=...
+```
 
-NEXT_PUBLIC_CHAIN_ID=80002
-NEXT_PUBLIC_RPC_URL=https://rpc-amoy.polygon.technology/
-NEXT_PUBLIC_USDC_ADDRESS=0x088bf8ba2A2bcE6bD799d8A2b797D6299a3D8819
-NEXT_PUBLIC_ERC1155_ADDRESS=0x38689CC4389104C52F15e36A1B08A328b324223F
-NEXT_PUBLIC_MARKETPLACE_ADDRESS=0x5190Ca5568000C5468970e89130e886809b98bec
+### 3. Deploy contracts
+```bash
+npx hardhat run scripts/deploy.ts --network amoy
+```
 
-### 3. Run dev server
-npm run dev
+### 4. Test marketplace
+```bash
+# Test podstawowy (mint + listing)
+npx hardhat run scripts/simple-test.js --network amoy
 
-Aplikacja będzie dostępna pod adresem: http://localhost:3000
+# Test zakupu
+npx hardhat run scripts/test-buy.js --network amoy
+```
+
+## 📋 Deployed Contracts (Amoy)
+
+- **USDCmock**: `0x747B2fD91a78068b8eFCcB634C43dd49c317Dc5d`
+- **CarbonLedgerGoO**: `0x21Bd8f6C9A0879C615AFB6c882aB66117F7c2209`
+- **MarketplaceUSDC**: `0xb9110838c02c769c194aB392B3ff173611fe675d`
 
 ---
 
+## 🧪 Testing Scripts
+
+- **`simple-test.js`** - Podstawowy test (mint GoO + utworzenie listingu)
+- **`test-buy.js`** - Test zakupu z weryfikacją sald
+- **`test-marketplace.js`** - Pełny test marketplace (mint + list + buy)
+
 ## 🔗 Related project
-Contracts (Hardhat + Solidity): https://github.com/joulix/contracts
+Dashboard (Next.js + React): https://github.com/joulix/dashboard
 
 ---
 
