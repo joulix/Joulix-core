@@ -1,15 +1,16 @@
-import "./globals.css";
-import type { Metadata } from "next";
+import Providers from "./providers";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Joulix Dashboard",
-  description: "Green energy certificates marketplace (Polygon Amoy)",
+  description: "Web3 Dashboard for Carbon Credits",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="pl">
+      <body style={{ fontFamily: "ui-sans-serif, system-ui", margin: 0 }}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
